@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Simulação de Física</title>
+    <style>
+        body { display: flex; flex-direction: column; align-items: center; background: #f0f0f0; font-family: sans-serif; }
+        canvas { background: #ffffff; border: 2px solid #333; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+
+    <h2>Simulação de Física Interativa</h2>
+    <canvas id="simulationCanvas" width="800" height="400"></canvas>
+
+    <script>
+        const canvas = document.getElementById('simulationCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Estado inicial do objeto (ex: posição e velocidade)
+        let x = 50;
+        let y = 200;
+        let velocidadeX = 2; // pixéis por quadro
+
+        function atualizar() {
+            // 1. Atualizar a física (ex: x = x + v * t)
+            x += velocidadeX;
+
+            // Fazer o objeto voltar ao início se sair da tela
+            if (x > canvas.width) {
+                x = 0;
+            }
+        }
+
+        function desenhar() {
+            // Limpar o canvas a cada quadro
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Desenhar o objeto (ex: uma partícula/esfera)
+            ctx.beginPath();
+            ctx.arc(x, y, 20, 0, Math.PI * 2);
+            ctx.fillStyle = '#0066cc';
+            ctx.fill();
+            ctx.closePath();
+        }
+
+        function loop() {
+            atualizar();
+            desenhar();
+            requestAnimationFrame(loop); // Mantém a animação fluida (60 FPS)
+        }
+
+        // Iniciar a animação
+        loop();
+    </script>
+
+</body>
+</html>
