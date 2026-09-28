@@ -27,3 +27,10 @@ body{
     margin: 0;
     padding: 20px;
 }
+.citacao-longa {
+            margin-left: 40px;       /* Recuo padrão de 4 cm à esquerda */
+            margin-top: 15px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;      /* Letra menor que o texto normal (geralmente equivalente a 10pt) */ 
+            line-height: 1.0;       /* Espaçamento entrelinhas simples */
+        }
