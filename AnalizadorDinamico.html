@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Analisador de Espectro - Tabela Estabilizada</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+
+        h1 {
+            color: #0066cc;
+            font-size: 1.8rem;
+            margin-top: 0;
+        }
+
+        .controls {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        button {
+            background: #0066cc;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: #004999;
+        }
+
+        button:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+        }
+
+        button#btnParar {
+            background: #dc2626;
+        }
+        button#btnParar:hover {
+            background: #b91c1c;
+        }
+
+        canvas {
+            background: #0f172a;
+            border: 2px solid #cbd5e1;
+            border-radius: 6px;
+            width: 100%;
+            height: 300px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+
+        .table-container {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            text-align: left;
+        }
+
+        .table-container h3 {
+            margin-top: 0;
+            color: #1e293b;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            background: #ffffff;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        th, td {
+            padding: 10px 15px;
+            text-align: center;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background-color: #0066cc;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        td {
+            font-size: 0.95rem;
+            color: #334155;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Analisador de Frequências e Harmónicos</h1>
+        <p>Toque uma nota e observe o gráfico fluido e a tabela com taxa de atualização estável para leitura.</p>
+
+        <div class="controls">
+            <button id="btnAtivar">Ligar Microfone</button>
+            <button id="btnParar" disabled>Parar Experimento</button>
+        </div>
+
+        <canvas id="audioCanvas" width="840" height="300"></canvas>
+
+        <div class="table-container">
+            <h3>Top 4 Picos de Frequência (Leitura Estável)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ordem</th>
+                        <th>Frequência (Hz)</th>
+                        <th>Intensidade (Amplitude)</th>
+                        <th>Nota Musical Estimada</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaPicos">
+                    <tr><td colspan="4">Aguardando áudio...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const btnAtivar = document.getElementById('btnAtivar');
+        const btnParar = document.getElementById('btnParar');
+        const canvas = document.getElementById('audioCanvas');
+        const ctx = canvas.getContext('2d');
+        const tabelaPicos = document.getElementById('tabelaPicos');
+
+        let audioContext;
+        let analyser;
+        let microphone;
+        let dataArray;
+        let stream;
+        let animationId;
+        let isRunning = false;
+
+        let ultimoTempoAtualizacao = 0;
+        const intervaloAtualizacaoTabela = 400; // Atualiza a tabela apenas a cada 400 milissegundos (2.5 vezes por segundo)
+
+        const notasNomes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+
+        function frequenciaParaNota(frequencia) {
+            if (frequencia < 20) return "-";
+            const midi = Math.round(12 * Math.log2(frequencia / 440) + 69);
+            const nomeNota = notasNomes[midi % 12];
+            const oitava = Math.floor(midi / 12) - 1;
+            return `${nomeNota}${oitava}`;
+        }
+
+        btnAtivar.addEventListener('click', async () => {
+            if (isRunning) return;
+
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+                
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                analyser = audioContext.createAnalyser();
+                
+                microphone = audioContext.createMediaStreamSource(stream);
+                microphone.connect(analyser);
+
+                analyser.fftSize = 2048;
+                const bufferLength = analyser.frequencyBinCount;
+                dataArray = new Uint8Array(bufferLength);
+
+                isRunning = true;
+                btnAtivar.disabled = true;
+                btnAtivar.style.background = "#16a34a";
+                btnAtivar.innerText = "A Analisar...";
+                btnParar.disabled = false;
+
+                analisarESeguir();
+
+            } catch (err) {
+                alert('Erro ao aceder ao microfone: ' + err);
+            }
+        });
+
+        btnParar.addEventListener('click', () => {
+            if (!isRunning) return;
+
+            cancelAnimationFrame(animationId);
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+            }
+            if (audioContext && audioContext.state !== 'closed') {
+                audioContext.close();
+            }
+
+            isRunning = false;
+            btnAtivar.disabled = false;
+            btnAtivar.innerText = "Ligar Microfone";
+            btnAtivar.style.background = "#0066cc";
+            btnParar.disabled = true;
+
+            ctx.fillStyle = '#0f172a';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            tabelaPicos.innerHTML = `<tr><td colspan="4">Experimento parado.</td></tr>`;
+        });
+
+        function analisarESeguir(timestamp) {
+            if (!isRunning) return;
+            animationId = requestAnimationFrame(analisarESeguir);
+
+            analyser.getByteFrequencyData(dataArray);
+
+            // 1. O gráfico continua a atualizar fluidamente a 60 FPS para máxima suavidade visual
+            ctx.fillStyle = '#0f172a';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            const barWidth = (canvas.width / dataArray.length) * 2.5;
+            let x = 0;
+
+            for (let i = 0; i < dataArray.length; i++) {
+                const barHeight = dataArray[i] * 1.1;
+                ctx.fillStyle = `rgb(${barHeight + 50}, 120, 255)`;
+                ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
+                x += barWidth + 1;
+            }
+
+            // 2. Controlo de tempo: A tabela só atualiza a cada 250ms para permitir a leitura humana
+            if (!ultimoTempoAtualizacao || timestamp - ultimoTempoAtualizacao > intervaloAtualizacaoTabela) {
+                ultimoTempoAtualizacao = timestamp;
+
+                let picos = [];
+                const sampleRate = audioContext.sampleRate;
+                const binWidth = sampleRate / analyser.fftSize;
+
+                for (let i = 1; i < dataArray.length - 1; i++) {
+                    if (dataArray[i] > dataArray[i - 1] && dataArray[i] > dataArray[i + 1] && dataArray[i] > 50) {
+                        let frequencia = i * binWidth;
+                        picos.push({ freq: frequencia, amp: dataArray[i] });
+                    }
+                }
+
+                picos.sort((a, b) => b.amp - a.amp);
+                const top4 = picos.slice(0, 4);
+
+                if (top4.length > 0) {
+                    let html = "";
+                    top4.forEach((pico, index) => {
+                        let nota = frequenciaParaNota(pico.freq);
+                        html += `<tr>
+                            <td><strong>#${index + 1}</strong></td>
+                            <td>${pico.freq.toFixed(1)} Hz</td>
+                            <td>${pico.amp}</td>
+                            <td><strong style="color: #0066cc;">${nota}</strong></td>
+                        </tr>`;
+                    });
+                    tabelaPicos.innerHTML = html;
+                } else {
+                    tabelaPicos.innerHTML = `<tr><td colspan="4">Aguardando sinal claro...</td></tr>`;
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>

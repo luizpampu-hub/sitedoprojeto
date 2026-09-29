@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Laboratório de Acústica: Análise de Harmónicos</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 950px;
+            width: 100%;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        h1 {
+            color: #0066cc;
+            font-size: 1.8rem;
+            margin-top: 0;
+        }
+
+        .controls {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        button {
+            background: #0066cc;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: #004999;
+        }
+
+        button:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+        }
+
+        #status {
+            font-weight: 600;
+            color: #475569;
+        }
+
+        .canvas-container {
+            margin-bottom: 20px;
+        }
+
+        .canvas-container h3 {
+            margin: 0 0 8px 0;
+            color: #1e293b;
+            font-size: 1.1rem;
+        }
+
+        canvas {
+            background: #0f172a;
+            border: 2px solid #cbd5e1;
+            border-radius: 6px;
+            width: 100%;
+            height: 310px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 20px;
+        }
+
+        .panel {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .panel h3 {
+            margin-top: 0;
+            color: #1e293b;
+            font-size: 1.1rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            background: #ffffff;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        th, td {
+            padding: 8px 10px;
+            text-align: center;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background-color: #0066cc;
+            color: white;
+            font-size: 0.85rem;
+        }
+
+        td {
+            font-size: 0.9rem;
+            color: #334155;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Laboratório Virtual: Análise Espectral e Harmónicos</h1>
+        <p>Clique em "Gravar Nota" para iniciar a contagem de 10 segundos de preparação, depois toque o instrumento.</p>
+
+        <div class="controls">
+            <button id="btnGravar">Gravar Nota (10s de espera)</button>
+            <span id="status">Estado: Pronto para gravação</span>
+        </div>
+
+        <div class="canvas-container">
+            <h3>Espectro de Frequências (Domínio da Frequência)</h3>
+            <canvas id="graficoCanvas" width="840" height="310"></canvas>
+        </div>
+
+        <div class="results-grid">
+            <div class="panel">
+                <h3>Tabela de Harmónicos e Intensidade Relativa</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Harmónico</th>
+                            <th>Freq. (Hz)</th>
+                            <th>Nota</th>
+                            <th>Intensidade</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabelaHarmonicos">
+                        <tr><td colspan="4">Nenhuma captura realizada.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="panel">
+                <h3>Nota Fundamental Detectada</h3>
+                <p><strong>Frequência Principal:</strong> <span id="resFundamental">-</span></p>
+                <p><strong>Nota Musical:</strong> <span id="resNota" style="color: #0066cc; font-size: 1.2rem; font-weight: bold;">-</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const btnGravar = document.getElementById('btnGravar');
+        const statusEl = document.getElementById('status');
+        const canvas = document.getElementById('graficoCanvas');
+        const ctx = canvas.getContext('2d');
+        const tabelaHarmonicos = document.getElementById('tabelaHarmonicos');
+        const resFundamental = document.getElementById('resFundamental');
+        const resNota = document.getElementById('resNota');
+
+        const notasNomes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+
+        function frequenciaParaNota(frequencia) {
+            if (frequencia < 20) return "-";
+            const midi = Math.round(12 * Math.log2(frequencia / 440) + 69);
+            const nomeNota = notasNomes[midi % 12];
+            const oitava = Math.floor(midi / 12) - 1;
+            return `${nomeNota}${oitava}`;
+        }
+
+        function desenharGraficoVazio() {
+            ctx.fillStyle = '#0f172a';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Desenhar eixos didáticos
+            ctx.strokeStyle = '#334155';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(50, 20);
+            ctx.lineTo(50, 260);
+            ctx.lineTo(820, 260);
+            ctx.stroke();
+
+            // Legendas dos Eixos
+            ctx.fillStyle = '#94a3b8';
+            ctx.font = '12px sans-serif';
+            ctx.fillText("Intensidade (Volume)", 15, 15);
+            ctx.fillText("Frequência (Hz) ➔ [Graves para Agudos]", 580, 290);
+            ctx.fillText("0 Hz", 45, 275);
+            ctx.fillText("3000 Hz", 790, 275);
+
+            ctx.fillStyle = '#64748b';
+            ctx.font = '14px sans-serif';
+            ctx.fillText("Aguardando captura de áudio...", 330, 140);
+        }
+
+        desenharGraficoVazio();
+
+        btnGravar.addEventListener('click', async () => {
+            btnGravar.disabled = true;
+
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const analyser = audioContext.createAnalyser();
+                const microphone = audioContext.createMediaStreamSource(stream);
+                microphone.connect(analyser);
+
+                analyser.fftSize = 4096;
+                const bufferLength = analyser.frequencyBinCount;
+                const dataArray = new Uint8Array(bufferLength);
+
+                let contagem = 10;
+                statusEl.style.color = "#d97706";
+                statusEl.innerText = `Prepare-se... ${contagem}s`;
+
+                let timerContagem = setInterval(() => {
+                    contagem--;
+                    if (contagem > 0) {
+                        statusEl.innerText = `Prepare-se... ${contagem}s`;
+                    } else {
+                        clearInterval(timerContagem);
+                        iniciarGravacaoEfetiva(stream, audioContext, analyser, dataArray, bufferLength);
+                    }
+                }, 1000);
+
+            } catch (err) {
+                alert('Erro ao aceder ao microfone: ' + err);
+                btnGravar.disabled = false;
+                statusEl.style.color = "#dc2626";
+                statusEl.innerText = "Estado: Erro de permissão do microfone";
+            }
+        });
+
+        function iniciarGravacaoEfetiva(stream, audioContext, analyser, dataArray, bufferLength) {
+            statusEl.style.color = "#dc2626";
+            statusEl.innerText = "A gravar... Toque a nota!";
+
+            let amostrasAcumuladas = new Float32Array(bufferLength);
+            let contagemLeituras = 0;
+            let tempoRestante = 3.0;
+
+            let intervaloCaptura = setInterval(() => {
+                analyser.getByteFrequencyData(dataArray);
+                for (let i = 0; i < bufferLength; i++) {
+                    amostrasAcumuladas[i] += dataArray[i];
+                }
+                contagemLeituras++;
+
+                tempoRestante -= 0.1;
+                if (tempoRestante > 0) {
+                    statusEl.innerText = `A gravar... (${tempoRestante.toFixed(1)}s restantes)`;
+                }
+            }, 100);
+
+            setTimeout(() => {
+                clearInterval(intervaloCaptura);
+
+                stream.getTracks().forEach(track => track.stop());
+                audioContext.close();
+
+                let espetroFinal = new Float32Array(bufferLength);
+                for (let i = 0; i < bufferLength; i++) {
+                    espetroFinal[i] = amostrasAcumuladas[i] / (contagemLeituras || 1);
+                }
+
+                processarEExibirResultados(espetroFinal, audioContext.sampleRate, analyser.fftSize);
+
+                btnGravar.disabled = false;
+                statusEl.style.color = "#16a34a";
+                statusEl.innerText = "Estado: Captura concluída com sucesso!";
+
+            }, 3000);
+        }
+
+        function processarEExibirResultados(dataArray, sampleRate, fftSize) {
+            ctx.fillStyle = '#0f172a';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Redesenhar eixos didáticos fixos
+            ctx.strokeStyle = '#334155';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(50, 20);
+            ctx.lineTo(50, 260);
+            ctx.lineTo(820, 260);
+            ctx.stroke();
+
+            ctx.fillStyle = '#94a3b8';
+            ctx.font = '12px sans-serif';
+            ctx.fillText("Intensidade (Volume)", 15, 15);
+            ctx.fillText("Frequência (Hz) ➔ [Graves para Agudos]", 580, 290);
+            ctx.fillText("0 Hz", 45, 275);
+            ctx.fillText("3000 Hz", 790, 275);
+
+            const binWidth = sampleRate / fftSize;
+            const maxBin = Math.floor(3000 / binWidth); 
+            let picos = [];
+
+            // Mapear coordenadas úteis para o gráfico considerando margens
+            const xMin = 50, xMax = 820;
+            const yMin = 20, yMax = 260;
+            const larguraGrafico = xMax - xMin;
+
+            ctx.beginPath();
+            ctx.strokeStyle = '#38bdf8';
+            ctx.lineWidth = 2;
+
+            for (let i = 0; i < maxBin; i++) {
+                let x = xMin + (i / maxBin) * larguraGrafico;
+                // Inverter eixo Y para o gráfico crescer para cima
+                let y = yMax - (dataArray[i] * 0.9);
+
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+
+                let freq = i * binWidth;
+
+                if (freq > 200 && i > 0 && i < maxBin - 1) {
+                    if (dataArray[i] > dataArray[i - 1] && dataArray[i] > dataArray[i + 1] && dataArray[i] > 30) {
+                        picos.push({ freq: freq, amp: dataArray[i] });
+                    }
+                }
+            }
+            ctx.stroke();
+
+            if (picos.length > 0) {
+                let picoMaisForte = picos.reduce((max, p) => p.amp > max.amp ? p : max, picos[0]);
+                let ampMaxima = picoMaisForte.amp; if (ampMaxima === 0) ampMaxima = 1;
+
+                picos.sort((a, b) => a.freq - b.freq);
+                const topHarmonicos = picos.slice(0, 5);
+
+                let html = "";
+                topHarmonicos.forEach((pico, index) => {
+                    let notaHarmonico = frequenciaParaNota(pico.freq);
+                    let intensidadeRelativa = ((pico.amp / ampMaxima) * 100).toFixed(1) + "%";
+                    let estiloDestaque = (pico.amp === ampMaxima) ? "background-color: #f0fdf4; font-weight: bold;" : "";
+
+                    html += `<tr style="${estiloDestaque}">
+                        <td><strong>#${index + 1}</strong></td>
+                        <td>${pico.freq.toFixed(1)} Hz</td>
+                        <td><strong>${notaHarmonico}</strong></td>
+                        <td>${intensidadeRelativa}</td>
+                    </tr>`;
+                });
+                tabelaHarmonicos.innerHTML = html;
+
+                resFundamental.innerText = `${picoMaisForte.freq.toFixed(1)} Hz`;
+                resNota.innerText = frequenciaParaNota(picoMaisForte.freq);
+
+                // Desenhar linhas guia verticais e rótulos de frequência diretamente sob cada pico detetado
+                topHarmonicos.forEach((pico) => {
+                    let xPico = xMin + (pico.freq / 3000) * larguraGrafico;
+                    let yPico = yMax - (pico.amp * 0.9);
+                    
+                    // Linha tracejada guia a cair até ao eixo X
+                    ctx.save();
+                    ctx.strokeStyle = '#64748b';
+                    ctx.setLineDash([3, 3]);
+                    ctx.beginPath();
+                    ctx.moveTo(xPico, yPico);
+                    ctx.lineTo(xPico, yMax);
+                    ctx.stroke();
+                    ctx.restore();
+
+                    // Ponto destacado
+                    ctx.beginPath();
+                    ctx.arc(xPico, yPico, 5, 0, Math.PI * 2);
+                    ctx.fillStyle = (pico.amp === ampMaxima) ? '#16a34a' : '#ef4444';
+                    ctx.fill();
+                    ctx.closePath();
+
+                    // Texto da frequência no eixo
+                    ctx.fillStyle = '#cbd5e1';
+                    ctx.font = '10px sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(`${pico.freq.toFixed(0)}Hz`, xPico, yMax + 15);
+                });
+
+            } else {
+                tabelaHarmonicos.innerHTML = `<tr><td colspan="4">Nenhum pico claro detetado. Tente novamente.</td></tr>`;
+                resFundamental.innerText = "-";
+                resNota.innerText = "-";
+            }
+        }
+    </script>
+
+</body>
+</html>
