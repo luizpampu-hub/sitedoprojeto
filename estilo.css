@@ -19,13 +19,14 @@ h3{
 p{
     color: #000000;
     font-size: 1em;
-    text-indent: 20px;
+   /* text-indent: 20px;*/
 }
 body{
     background-color: #e6f704;
     font-family: Arial, sans-serif;
-    margin: 0;
+    margin: auto;
     padding: 20px;
+    width: 80%;
 }
 .citacao-longa {
             margin-left: 40px;       /* Recuo padrão de 4 cm à esquerda */
