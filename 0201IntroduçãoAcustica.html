@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta author="Luiz Pampu">
+    <title>Introdução à Física Acústica</title>
+    <link rel="stylesheet" href="estilo.css">
+    <script >window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']]
+    }
+  };</script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+ 
+
+
+
+</head>
+<body>
+    <h1>Introdução à Física Acústica</h1>
+    <p><b>Autor:</b> Luiz Gustavo Pampu</p>
+
+    <p>Na primeira parte do estudo são apresentadas algumas das unidades fundamentais que farão sentido no percurso. Discute-se força (N), pressão (Pa) e energia (J), sem entrar inicialmente em detalhes minuciosos sobre a constituição vetorial ou tensorial dessas grandezas.</p>
+    
+    <p>Por exemplo, considerando a pressão definida por $p = \frac{F}{A}$, nem sempre se destaca que existe um produto escalar entre o vetor força $\vec{F}$ e o vetor área normal $\vec{A}$ que transforma uma grandeza a princípio vetorial em escalar. O mesmo ocorre para o cálculo do trabalho mecânico.</p>
+
+    <h2>Notação Científica</h2>
+    <p>Em física, muitos números aparecem em escalas extremas que não são familiares no nosso cotidiano, como por exemplo, $0,0009835\text{ g}$. Esses números podem ser resultados de medições diretas ou de cálculos complexos, tornando necessária a sua representação de forma mais didática e fácil de manipular. Para isso, utiliza-se a notação científica, que consiste em transformar o número de modo que ele fique entre 1 e 9 antes da vírgula. Ou seja, nosso número anterior passa a ser representado como $9,835 \cdot 10^{-4}\text{ g}$. Veja que para deixar apenas o algarismo 9 antes da vírgula, movemos a vírgula quatro casas decimais para a direita (o equivalente a multiplicar o número por 10000). Para não alterar o valor numérico, devemos dividir o valor também por 10000, operação que deixamos indicada através da potência $10^{-4}$, que equivale à divisão.</p>
+
+    <h2>1. Movimentos Periódicos</h2>
+    <p>Um movimento pode ser classificado como periódico quando, para um mesmo referencial, o fenômeno se repete levando exatamente o mesmo intervalo de tempo para cada ciclo. Exemplos clássicos incluem a alternância entre dia e noite, as fases da lua e as estações do ano. Todos esses fenômenos ocorrem de forma periódica, permitindo historicamente a criação dos primeiros sistemas de contagem de tempo e calendários, essenciais para a organização social e produtiva da humanidade.</p>
+    
+    <p>O tempo necessário para que um fenômeno completo se repita é chamado de <b>período ($T$)</b>, medido em unidades de tempo. Por exemplo, o período de translação da Terra é de $T = 365$ dias. No Sistema Internacional de Unidades (SI), convertendo para segundos, temos:</p>
+    $$T = 365 \times 24 \times 60 \times 60 = 31.536.000\text{ s} = 3,1536 \cdot 10^{7}\text{ s}$$
+    
+    <p>Já a <b>frequência ($f$)</b> mede a velocidade com que as repetições acontecem, sendo expressa por:</p>
+    $$f = \frac{\text{Número de repetições}}{\Delta t}$$
+    <p>A unidade de medida da frequência no SI é o Hertz (Hz), que equivale a ciclos por segundo ($\text{s}^{-1}$). A relação matemática recíproca entre frequência e período é dada por:</p>
+    $$f = \frac{1}{T} \quad \text{ou} \quad T = \frac{1}{f}$$
+
+    <h3>Exemplos de Osciladores</h3>
+    
+    <h4>Pêndulo Simples</h4>
+    <p>Aplicando as leis de Newton para a rotação de um pêndulo ideal (considerando torque e momento angular em torno de um eixo fixo, e utilizando apenas a componente da força peso tangencial à trajetória que aponta para a posição de equilíbrio), deduz-se a equação diferencial do movimento para pequenas amplitudes ($\theta$):</p>
+    $$\ddot{\theta} + \frac{g}{L}\theta = 0$$
+    <p>Resolvendo essa equação diferencial por métodos harmônicos, obtém-se o período do pêndulo simples:</p>
+    $$T = 2\pi\sqrt{\frac{L}{g}}$$
+    <p>Onde $L$ é o comprimento do fio e $g$ é a aceleração da gravidade local.</p>
+    <p>Experimente o simulador e teste algumas medidas <a href="https://phet.colorado.edu/sims/html/pendulum-lab/latest/pendulum-lab_all.html?locale=pt_BR" target="_blank">aqui</a>.</p>
+    <!-- SEÇÃO DE ATIVIDADE PRÁTICA COM O SIMULADOR PHET -->
+<div class="container-animacao" style="text-align: left; padding: 25px;">
+    <h3 style="text-align: center; color: #0004ff;">Atividade Prática: Investigando o Pêndulo Simples</h3>
+    
+    <p>
+        Utilize o simulador interativo abaixo (desenvolvido pelo projeto PhET) para realizar medições experimentais. 
+        Mantenha os parâmetros configurados conforme o estudo teórico: <b>Comprimento ($L$) = 0,70 m</b>, 
+        <b>Massa ($m$) = 1,00 kg</b>, <b>Gravidade ($g$) = 9,81 m/s²</b> e <b>Atrito = Zero</b>.
+    </p>
+
+    <!-- Container Responsivo para o Simulador PhET -->
+    <div style="position: relative; width: 100%; height: 500px; margin: 20px 0;">
+        <iframe src="https://phet.colorado.edu/sims/html/pendulum-lab/latest/pendulum-lab_pt_BR.html" 
+                width="100%" 
+                height="100%" 
+                allowfullscreen 
+                style="border: 1px solid #cbd5e1; border-radius: 8px;">
+        </iframe>
+    </div>
+
+    <h4 style="color: #0f172a; margin-top: 20px;">Roteiro de Instruções para o Estudante:</h4>
+    <ol style="margin-left: 20px; line-height: 1.6;">
+        Entre em <b>Intro</b> e configure o comprimento da corda para <b>0,70 m</b> no painel lateral direito.
+        Ative a <b>Régua</b> e o <b>Cronômetro</b> nos seletores do canto inferior esquerdo.
+        Desloque o pêndulo até um pequeno ângulo (menor que $15^\circ$) solte-o a partir do repouso.
+        Utilize o cronômetro para medir o tempo de <b>10 oscilações completas</b> (ida e volta) e divida por 10 para encontrar o período experimental ($T_{\text{experimental}}$) de um único ciclo. Utilize a régua para ajudar na contagem das oscilações.
+        Calcule o <b>Valor Teórico</b> esperado utilizando a equação do pêndulo simples:
+          $$T_{\text{teórico}} = 2\pi\sqrt{\frac{L}{g}} = 2\pi\sqrt{\frac{0,70}{9,81}} \approx 1,68\text{ s}$$
+        Insira os valores obtidos na ferramenta de validação abaixo para calcular o erro percentual da sua medição.
+    </ol>
+
+    <!-- Bloco Interativo de Cálculo de Erro Experimental -->
+    <div style="margin-top: 30px; padding: 20px; background-color: #f8fafc; border: 2px solid #0004ff; border-radius: 8px;">
+        <h4 style="color: #0004ff; margin-top: 0; text-align: center;">Validação do Experimento (Calculadora de Erro)</h4>
+        
+        <div style="margin-bottom: 15px;">
+            <label for="valTeorico"><b>Valor Teórico Calculado (s):</b></label><br>
+            <input type="number" id="valTeorico" value="1.68" step="any" style="width: 100%; padding: 8px; margin-top: 5px; border-radius: 4px; border: 1px solid #cbd5e1;">
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label for="valExperimental"><b>Valor Experimental Medido no PhET (s):</b></label><br>
+            <input type="number" id="valExperimental" placeholder="Ex: 1.67" step="any" style="width: 100%; padding: 8px; margin-top: 5px; border-radius: 4px; border: 1px solid #cbd5e1;">
+        </div>
+
+        <button onclick="calcularErroPendulo()" style="background-color: #0004ff; color: #ffffff; border: none; padding: 10px 20px; font-weight: bold; border-radius: 4px; cursor: pointer; width: 100%;">
+            Calcular Erro Percentual
+        </button>
+
+        <!-- Resultados -->
+        <div id="resultadoLaboratorio" style="margin-top: 15px; padding: 15px; background-color: #ffffff; border: 1px solid #cbd5e1; border-radius: 6px; display: none;">
+            <p id="resTeorico" style="margin: 5px 0;"></p>
+            <p id="resExperimental" style="margin: 5px 0;"></p>
+            <p id="resErro" style="margin: 5px 0; font-weight: bold; color: #2563eb;"></p>
+        </div>
+    </div>
+</div>
+
+<!-- Script JavaScript para o Cálculo -->
+<script>
+    function calcularErroPendulo() {
+        let teorico = parseFloat(document.getElementById('valTeorico').value);
+        let experimental = parseFloat(document.getElementById('valExperimental').value);
+
+        if (isNaN(teorico) || isNaN(experimental)) {
+            alert("Por favor, preencha ambos os valores corretamente.");
+            return;
+        }
+
+        let erroPercentual = Math.abs((teorico - experimental) / teorico) * 100;
+
+        document.getElementById('resTeorico').innerHTML = `Valor Teórico: <b>${teorico.toFixed(4)} s</b>`;
+        document.getElementById('resExperimental').innerHTML = `Valor Experimental Medido: <b>${experimental.toFixed(4)} s</b>`;
+        document.getElementById('resErro').innerHTML = `Erro Percentual Relativo: <b>${erroPercentual.toFixed(2)}%</b>`;
+
+        document.getElementById('resultadoLaboratorio').style.display = 'block';
+    }
+</script>
+
+    <h4>Oscilador Harmônico Simples (OHS)</h4>
+    <p>Para um sistema massa-mola regido pela Segunda Lei de Newton e pela Lei de Hooke ($F = -kx$), temos:</p>
+    $$m\ddot{x} = -kx \implies \ddot{x} + \frac{k}{m}x = 0$$
+    <p>A solução geral para o deslocamento em função do tempo é dada por uma função harmônica:</p>
+    $$x(t) = A\cos\left(\sqrt{\frac{k}{m}}t + \phi\right)$$
+    <p>O período de oscilação do sistema massa-mola é determinado por:</p>
+    $$T = 2\pi\sqrt{\frac{m}{k}}$$
+    <!-- SEÇÃO DE COMPARAÇÃO DE FREQUÊNCIAS: SISTEMA MASSA-MOLA -->
+<div class="container-animacao" style="text-align: left; padding: 25px;">
+    <h3 style="text-align: center; color: #0004ff;">Visualização de Frequências: Sistema Massa-Mola</h3>
+    <p>
+        A frequência natural de um oscilador massa-mola é dada por $f = \frac{1}{2\pi}\sqrt{\frac{k}{m}}$. 
+        Abaixo, três simulações em tempo real demonstram como diferentes valores de massa ($m$) e constante elástica ($k$) 
+        alteram a frequência e o comportamento oscilatório do sistema.
+    </p>
+
+    <!-- Sistema 1 -->
+    <div style="margin-bottom: 25px; padding: 15px; background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px;">
+        <h4 style="margin: 0 0 10px 0; color: #1e293b;">Sistema 1: Referência ($m = 1,0\text{ kg}$, $k = 10\text{ N/m}$)</h4>
+        <p style="margin: 0 0 10px 0; font-size: 0.9em; color: #475569;">Frequência Calculada: <span id="freq1" style="font-weight: bold; color: #0004ff;"></span></p>
+        <canvas id="canvasMassaMola1" width="600" height="120" style="width: 100%; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px;"></canvas>
+    </div>
+
+    <!-- Sistema 2 -->
+    <div style="margin-bottom: 25px; padding: 15px; background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px;">
+        <h4 style="margin: 0 0 10px 0; color: #1e293b;">Sistema 2: Maior Rigidez / Maior Frequência ($m = 1,0\text{ kg}$, $k = 40\text{ N/m}$)</h4>
+        <p style="margin: 0 0 10px 0; font-size: 0.9em; color: #475569;">Frequência Calculada: <span id="freq2" style="font-weight: bold; color: #0004ff;"></span></p>
+        <canvas id="canvasMassaMola2" width="600" height="120" style="width: 100%; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px;"></canvas>
+    </div>
+
+    <!-- Sistema 3 -->
+    <div style="margin-bottom: 15px; padding: 15px; background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px;">
+        <h4 style="margin: 0 0 10px 0; color: #1e293b;">Sistema 3: Maior Inércia / Menor Frequência ($m = 4,0\text{ kg}$, $k = 10\text{ N/m}$)</h4>
+        <p style="margin: 0 0 10px 0; font-size: 0.9em; color: #475569;">Frequência Calculada: <span id="freq3" style="font-weight: bold; color: #0004ff;"></span></p>
+        <canvas id="canvasMassaMola3" width="600" height="120" style="width: 100%; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px;"></canvas>
+    </div>
+</div>
+
+<!-- Script JavaScript para renderizar as três simulações de molas simultaneamente -->
+<script>
+    // Função genérica para animar cada sistema massa-mola em um canvas separado
+    function criarSimulacaoMola(canvasId, freqElementId, m, k) {
+        const canvas = document.getElementById(canvasId);
+        const ctx = canvas.getContext('2d');
+
+        // Cálculo da frequência angular (omega) e frequência linear (f)
+        // w = sqrt(k/m), f = w / (2 * pi)
+        const omega = Math.sqrt(k / m);
+        const frequencia = omega / (2 * Math.PI);
+
+        // Exibe o valor da frequência na tela
+        document.getElementById(freqElementId).innerText = frequencia.toFixed(2) + " Hz (m = " + m + " kg, k = " + k + " N/m)";
+
+        let tempo = 0;
+
+        function desenhar() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const largura = canvas.width;
+            const altura = canvas.height;
+            const baseY = altura / 2;
+            const inicioX = 40;
+            const comprimentoLivre = 200;
+
+            // Posição oscilatória da massa: x(t) = A * cos(omega * t)
+            const amplitude = 50;
+            const deslocamento = amplitude * Math.cos(omega * tempo);
+            const posicaoMassaX = inicioX + comprimentoLivre + deslocamento;
+
+            // 1. Desenhar a parede fixa (suporte da mola)
+            ctx.fillStyle = '#64748b';
+            ctx.fillRect(inicioX - 10, baseY - 35, 10, 70);
+
+            // Linhas hachuradas de suporte
+            ctx.strokeStyle = '#334155';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            for (let i = -30; i <= 30; i += 10) {
+                ctx.moveTo(inicioX - 10, baseY + i);
+                ctx.lineTo(inicioX - 20, baseY + i + 10);
+            }
+            ctx.stroke();
+
+            // 2. Desenhar a mola em zigue-zague
+            ctx.strokeStyle = '#0004ff';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(inicioX, baseY);
+
+            const espirais = 14;
+            const passoX = (posicaoMassaX - inicioX) / espirais;
+
+            for (let i = 0; i < espirais; i++) {
+                let x = inicioX + (i + 0.5) * passoX;
+                let yOffset = (i % 2 === 0) ? -15 : 15;
+                ctx.lineTo(x, baseY + yOffset);
+            }
+            ctx.lineTo(posicaoMassaX, baseY);
+            ctx.stroke();
+
+            // 3. Desenhar o bloco de massa (m)
+            ctx.fillStyle = '#2563eb';
+            ctx.fillRect(posicaoMassaX, baseY - 25, 40, 50);
+            ctx.strokeStyle = '#1e3a8a';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(posicaoMassaX, baseY - 25, 40, 50);
+
+            // Texto da massa dentro do bloco
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 12px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(m + 'kg', posicaoMassaX + 20, baseY + 5);
+
+            // Incrementa o tempo da simulação
+            tempo += 0.03;
+            requestAnimationFrame(desenhar);
+        }
+
+        desenhar();
+    }
+
+    // Inicializa os três sistemas com massas e constantes elásticas diferentes
+    window.addEventListener('DOMContentLoaded', () => {
+        criarSimulacaoMola('canvasMassaMola1', 'freq1', 1.0, 10); // Sistema 1
+        criarSimulacaoMola('canvasMassaMola2', 'freq2', 1.0, 40); // Sistema 2 (Maior k -> maior frequência)
+        criarSimulacaoMola('canvasMassaMola3', 'freq3', 4.0, 10); // Sistema 3 (Maior m -> menor frequência)
+    });
+</script>
+
+    <h3>Oscilações Amortecidas e Forçadas</h3>
+    <p>Quando um oscilador sofre a ação de forças dissipativas externas (como o atrito seco ou viscoso), sua energia mecânica diminui gradualmente, caracterizando uma <b>oscilação amortecida</b>. Por outro lado, nas <b>oscilações forçadas</b>, aplica-se uma força periódica externa sobre a estrutura. Caso a frequência dessa força externa coincida com a frequência natural de vibração do sistema, ocorre o fenômeno da <b>ressonância</b>, provocando um aumento drástico na amplitude de oscilação que pode gerar efeitos catastróficos em estruturas civis, pontes e edifícios (como nos casos históricos do arranha-céu Techno-Mart, da Ponte de Angers e da Millennium Bridge em Londres).</p>
+    <!-- SEÇÃO INTERATIVA: AMORTECIMENTO E RESSONÂNCIA (ESTILO LIVRO DIDÁTICO) -->
+<div class="container-animacao" style="text-align: left; padding: 25px;">
+    <h3 style="text-align: center; color: #0004ff;">Laboratório Didático: Amortecimento e Ressonância</h3>
+    <p>
+        Selecione o regime oscilatório abaixo para analisar o comportamento físico da mola em paralelo com o 
+        gráfico analítico de amplitude em função do tempo ($x \times t$).
+    </p>
+
+    <!-- Menu Seletor de Modos -->
+    <div style="margin: 20px 0; text-align: center;">
+        <label for="seletorModo" style="font-weight: bold; color: #1e293b;">Selecione o Fenômeno Físico:</label><br>
+        <select id="seletorModo" onchange="mudarModo()" style="padding: 10px 15px; border-radius: 6px; border: 2px solid #0004ff; font-weight: bold; background-color: #ffffff; color: #0004ff; margin-top: 8px; width: 100%; max-width: 400px; cursor: pointer;">
+            <option value="sub">1. Regime Subamortecido (Decadência gradual)</option>
+            <option value="crit">2. Amortecimento Crítico (Retorno rápido)</option>
+            <option value="super">3. Superamortecido (Retorno lento sem oscilar)</option>
+            <option value="ressonancia">4. Fenômeno da Ressonância (Amplitude crescente)</option>
+        </select>
+    </div>
+
+    <!-- Caixa de Descrição Dinâmica -->
+    <div id="descricaoModo" style="font-size: 0.95em; color: #1e293b; background-color: #f1f5f9; border-left: 4px solid #0004ff; padding: 12px; border-radius: 4px; margin-bottom: 20px;"></div>
+
+    <!-- Estilo para o painel lado a lado -->
+    <style>
+        .painel-canvas-didatico {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            align-items: center;
+            background-color: #f8fafc;
+            padding: 15px;
+            border: 2px solid #0004ff;
+            border-radius: 8px;
+        }
+        @media (max-width: 768px) {
+            .painel-canvas-didatico { grid-template-columns: 1fr; }
+        }
+    </style>
+
+    <!-- Exibição Simultânea: Sistema Físico + Gráfico Didático -->
+    <div class="painel-canvas-didatico">
+        <div>
+            <p style="margin: 0 0 5px 0; font-size: 0.85em; color: #475569; text-align: center;"><b>Sistema Físico (Massa-Mola)</b></p>
+            <canvas id="canvasMolaUnico" width="350" height="160" style="width: 100%; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px;"></canvas>
+        </div>
+        <div>
+            <p style="margin: 0 0 5px 0; font-size: 0.85em; color: #475569; text-align: center;"><b>Gráfico Analítico $x(t)$</b></p>
+            <canvas id="canvasGraficoUnico" width="350" height="160" style="width: 100%; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px;"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- SCRIPT JAVASCRIPT APRIMORADO -->
+<script>
+    const descricoesTexto = {
+        sub: "<b>Regime Subamortecido:</b> O sistema oscila com amplitude decrescente exponencialmente ao longo do tempo devido à dissipação fraca de energia.",
+        crit: "<b>Amortecimento Crítico:</b> A resistência do meio é ideal para retornar o sistema ao repouso no menor tempo possível, sem realizar nenhum ciclo oscilatório.",
+        super: "<b>Regime Superamortecido:</b> O atrito elevado impede qualquer oscilação; o bloco retorna à posição de equilíbrio de forma lenta e arrastada.",
+        ressonancia: "<b>Ressonância:</b> Com uma força externa sintonizada na frequência natural, a transferência contínua de energia faz a amplitude disparar rapidamente."
+    };
+
+    const cMola = document.getElementById('canvasMolaUnico');
+    const ctxMola = cMola.getContext('2d');
+    const cGraf = document.getElementById('canvasGraficoUnico');
+    const ctxGraf = cGraf.getContext('2d');
+
+    let tempo = 0;
+    let historicoX = [];
+    const maxPontos = 160;
+
+    function mudarModo() {
+        tempo = 0;
+        historicoX = [];
+        let modoSelecionado = document.getElementById('seletorModo').value;
+        document.getElementById('descricaoModo').innerHTML = descricoesTexto[modoSelecionado];
+    }
+
+    document.getElementById('descricaoModo').innerHTML = descricoesTexto['sub'];
+
+    function animarSistemaDidatico() {
+        let modo = document.getElementById('seletorModo').value;
+        let x = 0;
+        const A = 65; // Amplitude aumentada para maior destaque visual
+
+        // Fórmulas ajustadas
+        if (modo === 'sub') {
+            let gamma = 0.05;
+            let omega = 0.25;
+            x = A * Math.exp(-gamma * tempo) * Math.cos(omega * tempo);
+        } else if (modo === 'crit') {
+            let gamma = 0.16;
+            x = A * (1 + 0.12 * tempo) * Math.exp(-gamma * tempo);
+        } else if (modo === 'super') {
+            let g1 = 0.07;
+            let g2 = 0.30;
+            x = A * (Math.exp(-g1 * (tempo * 0.4)) - Math.exp(-g2 * (tempo * 0.4))) * 2.2;
+        } else if (modo === 'ressonancia') {
+            let omega = 0.25;
+            // Crescimento da amplitude muito mais rápido e acentuado
+            let fatorCrescimento = Math.min(tempo * 0.45, A * 1.3);
+            x = fatorCrescimento * Math.sin(omega * tempo);
+        }
+
+        // --- 1. RENDERIZAR O SISTEMA FÍSICO (MOLA) ---
+        ctxMola.clearRect(0, 0, cMola.width, cMola.height);
+        const baseY = cMola.height / 2;
+        const inicioX = 35;
+        const comprimentoLivre = 110;
+        const posicaoMassaX = inicioX + comprimentoLivre + x;
+
+        // Suporte fixo
+        ctxMola.fillStyle = '#64748b';
+        ctxMola.fillRect(inicioX - 8, baseY - 35, 8, 70);
+
+        // Mola
+        ctxMola.strokeStyle = '#0004ff';
+        ctxMola.lineWidth = 2;
+        ctxMola.beginPath();
+        ctxMola.moveTo(inicioX, baseY);
+        const espirais = 12;
+        const passoX = (posicaoMassaX - inicioX) / espirais;
+        for (let i = 0; i < espirais; i++) {
+            let px = inicioX + (i + 0.5) * passoX;
+            let pyOffset = (i % 2 === 0) ? -14 : 14;
+            ctxMola.lineTo(px, baseY + pyOffset);
+        }
+        ctxMola.lineTo(posicaoMassaX, baseY);
+        ctxMola.stroke();
+
+        // Bloco de massa
+        ctxMola.fillStyle = '#2563eb';
+        ctxMola.fillRect(posicaoMassaX, baseY - 24, 40, 48);
+        ctxMola.strokeStyle = '#1e3a8a';
+        ctxMola.lineWidth = 2;
+        ctxMola.strokeRect(posicaoMassaX, baseY - 24, 40, 48);
+
+        // --- 2. RENDERIZAR GRÁFICO ESTILO LIVRO DIDÁTICO ---
+        historicoX.push(x);
+        if (historicoX.length > maxPontos) {
+            historicoX.shift();
+        }
+
+        ctxGraf.clearRect(0, 0, cGraf.width, cGraf.height);
+        const centroGrafY = cGraf.height / 2;
+
+        // Desenhar eixos coordenados fixos (estilo livro)
+        ctxGraf.strokeStyle = '#334155';
+        ctxGraf.lineWidth = 1.5;
+        
+        // Eixo Vertical (Posição x)
+        ctxGraf.beginPath();
+        ctxGraf.moveTo(30, 10);
+        ctxGraf.lineTo(30, cGraf.height - 15);
+        ctxGraf.stroke();
+
+        // Eixo Horizontal (Tempo t)
+        ctxGraf.beginPath();
+        ctxGraf.moveTo(20, centroGrafY);
+        ctxGraf.lineTo(cGraf.width - 10, centroGrafY);
+        ctxGraf.stroke();
+
+        // Rótulos dos eixos
+        ctxGraf.fillStyle = '#1e293b';
+        ctxGraf.font = '11px sans-serif';
+        ctxGraf.fillText("x(t)", 12, 18);
+        ctxGraf.fillText("t", cGraf.width - 15, centroGrafY + 14);
+
+        // Linhas de grade secundárias discretas
+        ctxGraf.strokeStyle = '#e2e8f0';
+        ctxGraf.lineWidth = 1;
+        ctxGraf.setLineDash([3, 3]);
+        ctxGraf.beginPath();
+        ctxGraf.moveTo(30, centroGrafY - 45); ctxGraf.lineTo(cGraf.width - 10, centroGrafY - 45);
+        ctxGraf.moveTo(30, centroGrafY + 45); ctxGraf.lineTo(cGraf.width - 10, centroGrafY + 45);
+        ctxGraf.stroke();
+        ctxGraf.setLineDash([]);
+
+        // Traçar a curva analítica no gráfico
+        ctxGraf.strokeStyle = '#0004ff';
+        ctxGraf.lineWidth = 2.5;
+        ctxGraf.beginPath();
+        const larguraUtil = cGraf.width - 50;
+        const passoGrafX = larguraUtil / maxPontos;
+        
+        for (let i = 0; i < historicoX.length; i++) {
+            let gx = 30 + (i * passoGrafX);
+            let gy = centroGrafY - historicoX[i];
+            if (i === 0) {
+                ctxGraf.moveTo(gx, gy);
+            } else {
+                ctxGraf.lineTo(gx, gy);
+            }
+        }
+        ctxGraf.stroke();
+
+        // Avanço do tempo e reinício do ciclo
+        tempo += 0.08;
+        if (tempo > 130 && modo !== 'ressonancia') {
+            tempo = 0;
+            historicoX = [];
+        } else if (tempo > 90 && modo === 'ressonancia') {
+            tempo = 0;
+            historicoX = [];
+        }
+
+        requestAnimationFrame(animarSistemaDidatico);
+    }
+
+    animarSistemaDidatico();
+</script>
+
+    <h2>2. Movimento Ondulatório</h2>
+    <p>Quando perturbamos uma corda esticada para cima e para baixo, criamos uma onda mecânica que se propaga ao longo do meio. É fundamental destacar que as ondas transportam energia e informação, mas <b>não transportam matéria (massa)</b>. Elementos como cristas e vales definem os parâmetros geométricos da onda, estando associados ao comprimento de onda ($\lambda$), à amplitude ($A$) e à velocidade de propagação ($v$).</p>
+
+    <h3>Classificação das Ondas</h3>
+    <ul>
+        <li><b>Quanto à Natureza:</b> 
+            <ul>
+                <li><i>Mecânicas:</i> Necessitam de um meio material para se propagar e são regidas pelas Leis de Newton (ex: ondas sonoras, ondas em cordas).</li>
+                <li><i>Eletromagnéticas:</i> Não necessitam de meio material; propagam-se inclusive no vácuo (ex: luz visível, ondas de rádio).</li>
+                <li><i>Materiais:</i> Sob condições quânticas, partículas subatômicas também podem exibir comportamento ondulatório.</li>
+            </ul>
+        </li>
+        <li><b>Quanto à Direção de Vibração e Propagação:</b>
+            <ul>
+                <li><i>Transversais:</i> A vibração é perpendicular à direção de propagação (ex: ondas em cordas, luz).</li>
+                <li><i>Longitudinais:</i> A vibração ocorre na mesma direção da propagação (ex: som nos fluidos).</li>
+                <li><i>Mistas:</i> Combinam movimentos ortogonais e paralelos (ex: ondas na superfície da água).</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h3>Equação de uma Onda Harmônica Progressiva</h3>
+    <p>A posição vertical $y$ de um elemento da corda em função da posição $x$ e do tempo $t$ para uma onda que se propaga ao longo do eixo $x$ é descrita por:</p>
+    $$y(x,t) = A\sin(kx \mp \omega t + \phi)$$
+    <p>Onde:</p>
+    <ul>
+        <li>$A$: Amplitude máxima da onda.</li>
+        <li>$k = \frac{2\pi}{\lambda}$: Número de onda ($\text{rad/m}$).</li>
+        <li>$\omega = 2\pi f = \frac{2\pi}{T}$: Frequência angular ($\text{rad/s}$).</li>
+        <li>O sinal negativo ($-$) indica propagação no sentido positivo do eixo $x$ (para a direita), enquanto o positivo ($+$) indica propagação para a esquerda.</li>
+    </ul>
+    <p>A velocidade de propagação da onda em uma corda esticada é relacionada através de:</p>
+    $$v = \lambda f = \frac{\omega}{k} = \sqrt{\frac{T}{\mu}}$$
+    <p>Onde $T$ é a tração na corda e $\mu$ é a sua densidade linear de massa ($\mu = \frac{m}{L}$).</p>
+
+
+    <h2>3. O Som e Fenômenos Acústicos</h2>
+    <p>O som é uma onda mecânica longitudinal gerada por perturbações de pressão e deslocamento nas partículas de um meio elástico. No ar, a velocidade do som depende principalmente da temperatura:</p>
+    $$v_{\text{som}} \approx 331 + 0,6 \cdot \theta \quad (\text{em m/s, com } \theta \text{ em }^\circ\text{C})$$
+
+    <h3>Intensidade e Nível Sonoro</h3>
+    <p>A intensidade sonora ($I$) representa a energia que atravessa uma unidade de área por unidade de tempo, medida em $\text{W/m}^2$:</p>
+    $$I = \frac{\Delta E}{A \cdot \Delta t} = \frac{1}{2}\rho v \omega^2 s_m^2$$
+    <p>Como o ouvido humano responde de forma logarítmica a variações de energia, adota-se a escala do <b>Nível de Intensidade Sonora (NIS)</b>, medida em decibéis (dB):</p>
+    $$\text{NIS} = 10 \log_{10}\left(\frac{I}{I_0}\right)$$
+    <p>Onde $I_0 = 10^{-12}\text{ W/m}^2$ representa o limiar de audibilidade humana de referência para a frequência de $1\text{ kHz}$.</p>
+    <!-- SEÇÃO INTERATIVA: ANIMAÇÃO DA ONDA SONORA -->
+<div class="container-animacao" style="text-align: left; padding: 25px; margin-top: 25px;">
+    <h3 style="text-align: center; color: #0004ff;">Laboratório Visual: Propagação da Onda Sonora</h3>
+    <p>
+        A velocidade de propagação da onda é rigorosamente constante para ambas as frequências. 
+        Note que o som grave possui maior comprimento de onda ($\lambda$), enquanto o som agudo possui menor comprimento de onda, 
+        mas ambos avançam pelo meio com a mesma velocidade.
+    </p>
+
+    <div style="margin: 20px 0; text-align: center;">
+        <label for="seletorSom" style="font-weight: bold; color: #1e293b;">Selecione o Tipo de Onda Sonora:</label><br>
+        <select id="seletorSom" onchange="mudarSom()" style="padding: 10px 15px; border-radius: 6px; border: 2px solid #0004ff; font-weight: bold; background-color: #ffffff; color: #0004ff; margin-top: 8px; width: 100%; max-width: 400px; cursor: pointer;">
+            <option value="grave">1. Som Grave (Baixa Frequência - $\lambda$ maior)</option>
+            <option value="agudo">2. Som Agudo (Alta Frequência - $\lambda$ menor)</option>
+        </select>
+    </div>
+
+    <div id="descricaoSom" style="font-size: 0.95em; color: #1e293b; background-color: #f1f5f9; border-left: 4px solid #0004ff; padding: 12px; border-radius: 4px; margin-bottom: 20px;"></div>
+
+    <style>
+        .painel-canvas-som {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            align-items: center;
+            background-color: #f8fafc;
+            padding: 15px;
+            border: 2px solid #0004ff;
+            border-radius: 8px;
+        }
+        @media (max-width: 768px) {
+            .painel-canvas-som { grid-template-columns: 1fr; }
+        }
+    </style>
+
+    <div class="painel-canvas-som">
+        <div>
+            <p style="margin: 0 0 5px 0; font-size: 0.85em; color: #475569; text-align: center;"><b>Partículas de Ar e Linhas de Compressão</b></p>
+            <canvas id="canvasParticulas" width="350" height="160" style="width: 100%; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px;"></canvas>
+        </div>
+        <div>
+            <p style="margin: 0 0 5px 0; font-size: 0.85em; color: #475569; text-align: center;"><b>Gráfico de Pressão com Picos Destacados</b></p>
+            <canvas id="canvasGraficoSom" width="350" height="160" style="width: 100%; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px;"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- SCRIPT JAVASCRIPT DA ONDA SONORA -->
+<script>
+    const textoSonsCorrigido = {
+        grave: "<b>Som Grave:</b> Frequência menor e maior comprimento de onda. As cristas avançam com a mesma velocidade constante, mas com maior espaçamento.",
+        agudo: "<b>Som Agudo:</b> Frequência alta e menor comprimento de onda. As compressões sucedem-se mais densamente, mantendo rigorosamente a mesma velocidade de propagação."
+    };
+
+    const cPart = document.getElementById('canvasParticulas');
+    const ctxPart = cPart.getContext('2d');
+    const cGSom = document.getElementById('canvasGraficoSom');
+    const ctxGSom = cGSom.getContext('2d');
+
+    let tempoSom = 0;
+
+    function mudarSom() {
+        tempoSom = 0;
+        let tipo = document.getElementById('seletorSom').value;
+        document.getElementById('descricaoSom').innerHTML = textoSonsCorrigido[tipo];
+    }
+
+    function animarOndaVelocidadeConstante() {
+        let tipo = document.getElementById('seletorSom').value;
+        let k = (tipo === 'grave') ? 0.04 : 0.10; 
+        let velocidadeConstante = 1.2; 
+        let omega = velocidadeConstante * k; 
+        let fase = tempoSom * omega;
+
+        // --- 1. RENDERIZAR PARTICULAS DE AR ---
+        ctxPart.clearRect(0, 0, cPart.width, cPart.height);
+        
+        let linhas = 5;
+        let colunas = 28;
+        let espacoX = cPart.width / (colunas + 1);
+        let espacoY = cPart.height / (linhas + 1);
+
+        for (let l = 1; l <= linhas; l++) {
+            for (let c = 1; c <= colunas; c++) {
+                let xBase = c * espacoX;
+                let yBase = l * espacoY;
+                let deslocamentoX = 10 * Math.sin(xBase * k - fase);
+                
+                ctxPart.fillStyle = '#2563eb';
+                ctxPart.beginPath();
+                ctxPart.arc(xBase + deslocamentoX, yBase, 3.2, 0, Math.PI * 2);
+                ctxPart.fill();
+            }
+        }
+
+        // Linhas de compressão máxima nas partículas
+        ctxPart.strokeStyle = 'rgba(239, 68, 68, 0.6)';
+        ctxPart.lineWidth = 1.5;
+        ctxPart.setLineDash([4, 4]);
+
+        for (let xPos = 0; xPos < cPart.width; xPos += 5) {
+            let valorCoseno = Math.cos(xPos * k - fase);
+            if (valorCoseno > 0.95) {
+                ctxPart.beginPath();
+                ctxPart.moveTo(xPos, 10);
+                ctxPart.lineTo(xPos, cPart.height - 10);
+                ctxPart.stroke();
+            }
+        }
+        ctxPart.setLineDash([]);
+
+        // --- 2. RENDERIZAR GRÁFICO DE PRESSÃO ---
+        ctxGSom.clearRect(0, 0, cGSom.width, cGSom.height);
+        const centroY = cGSom.height / 2;
+
+        ctxGSom.strokeStyle = '#334155';
+        ctxGSom.lineWidth = 1.5;
+        
+        ctxGSom.beginPath();
+        ctxGSom.moveTo(30, 10);
+        ctxGSom.lineTo(30, cGSom.height - 15);
+        ctxGSom.stroke();
+
+        ctxGSom.beginPath();
+        ctxGSom.moveTo(20, centroY);
+        ctxGSom.lineTo(cGSom.width - 10, centroY);
+        ctxGSom.stroke();
+
+        ctxGSom.fillStyle = '#1e293b';
+        ctxGSom.font = '11px sans-serif';
+        ctxGSom.fillText("Δp", 12, 18);
+        ctxGSom.fillText("x", cGSom.width - 15, centroY + 14);
+
+        ctxGSom.strokeStyle = '#0004ff';
+        ctxGSom.lineWidth = 2.5;
+        ctxGSom.beginPath();
+
+        let larguraUtil = cGSom.width - 45;
+        let arrayPontosGrafico = [];
+
+        for (let px = 0; px <= larguraUtil; px += 2) {
+            let xCoord = 30 + px;
+            let yCoord = centroY - 45 * Math.sin((px * k) - fase);
+            arrayPontosGrafico.push({x: xCoord, y: yCoord, pressao: Math.sin((px * k) - fase)});
+            if (px === 0) {
+                ctxGSom.moveTo(xCoord, yCoord);
+            } else {
+                ctxGSom.lineTo(xCoord, yCoord);
+            }
+        }
+        ctxGSom.stroke();
+
+        // Linhas verticais nos picos do gráfico
+        ctxGSom.strokeStyle = 'rgba(239, 68, 68, 0.6)';
+        ctxGSom.lineWidth = 1.5;
+        ctxGSom.setLineDash([4, 4]);
+
+        arrayPontosGrafico.forEach(p => {
+            if (p.pressao > 0.95) {
+                ctxGSom.beginPath();
+                ctxGSom.moveTo(p.x, centroY);
+                ctxGSom.lineTo(p.x, p.y);
+                ctxGSom.stroke();
+            }
+        });
+        ctxGSom.setLineDash([]);
+
+        tempoSom += 0.5;
+        requestAnimationFrame(animarOndaVelocidadeConstante);
+    }
+
+    // Inicialização ao carregar a página
+    window.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('descricaoSom').innerHTML = textoSonsCorrigido['grave'];
+        animarOndaVelocidadeConstante();
+    });
+</script>
+
+    <h3>Fenômenos Ondulatórios Aplicados à Acústica</h3>
+    <ul>
+        <li><b>Reflexão e Reverberação:</b> Uma onda sonora, ao encontrar um obstáculo como uma parede, tem parte de sua energia refletida, parte transmitida e parte absorvida. O retorno da onda ao encontrar um obstáculo é chamado de reflexão. Se o intervalo de tempo entre o som emitido e o refletido for superior a $0,1\text{ s}$, percebe-se o <i>eco</i>; caso contrário, ocorre a <i>reverberação</i>. No eco conseguimos ouvir o som original e o refletido separadamente, enquanto na reverberação o som refletido se sobrepõe ao som original, criando um efeito de prolongamento sonoro.</li>
+        <li><b>Refração e Impedância Acústica:</b> Ao passar de um meio para outro com propriedades distintas, a onda altera sua velocidade e comprimento de onda. A impedância acústica característica é dada por $Z = \rho v$, fundamental para entender o <i>casamento de impedância</i> realizado pelas estruturas do ouvido. A diferença de impedância entre dois meios afeta a quantidade de som que é refletida e transmitida. Quanto maior a diferença, maior a quantidade de som refletido.</li>
+        <li><b>Difração:</b> Capacidade das ondas de contornar obstáculos ou aberturas, sendo intensa quando o comprimento de onda é da ordem ou maior que a dimensão do obstáculo ($\lambda \ge D$). Sons graves difratam com muito mais facilidade do que os agudos. Alguns animais como os elefantes utilizam infrassom (baixa frequência e inaudível para o ser humano) para se comunicar em longas distâncias, pois o som de baixa frequência se propaga melhor através do meio ambiente.</li>
+        <li><b>Batimento:</b> Interferência temporal gerada pela superposição de duas ondas de frequências ligeiramente próximas ($f_1 \approx f_2$). A frequência do batimento audível é dada por:
+        $$f_{\text{bat}} = |f_1 - f_2|$$</li>
+    </ul>
+
+    <h2>4. Ressonância em Tubos Sonoros e Membranas</h2>
+    <p>Colunas de ar confinadas em tubos podem entrar em ressonância formando ondas estacionárias:</p>
+    <ul>
+        <li><b>Tubos Abertos (ambas as extremidades abertas):</b> Possuem antinós nas duas pontas. Os harmônicos possíveis englobam todos os números inteiros ($n = 1, 2, 3, \dots$):
+        $$f_n = n \frac{v}{2L} \quad (n = 1, 2, 3, \dots)$$</li>
+        <li><b>Tubos Fechados (uma extremidade fechada e outra aberta):</b> Possuem um nó na extremidade fechada e um antinó na aberta, permitindo apenas harmônicos ímpares ($n = 1, 3, 5, \dots$):
+        $$f_n = n \frac{v}{4L} \quad (n = 1, 3, 5, \dots)$$</li>
+        <li><b>Membranas Vibrantes:</b> Superfícies elásticas, como tambores, podem vibrar em modos específicos, formando padrões de ressonância bidimensionais. A frequência fundamental e os harmônicos dependem da tensão, densidade e geometria da membrana. A frequência fundamental é representada pelo movimento de toda a membrana com a linha de Chladni nas bordas do tambor. </li>
+    </ul>
+    <!-- SEÇÃO INTERATIVA: RESSONÂNCIA EM TUBOS E MEMBRANAS -->
+<div class="container-animacao" style="text-align: left; padding: 25px; margin-top: 25px;">
+    <h3 style="text-align: center; color: #0004ff;">Laboratório Visual: Ondas Estacionárias e Modos de Ressonância</h3>
+    <p>
+        Selecione o tipo de sistema acústico e alterne entre os harmônicos para observar a evolução temporal das ondas estacionárias, 
+        os pontos de nó (deslocamento nulo) e os antinós (ventres de máxima amplitude).
+    </p>
+
+    <!-- Controles Superiores: Seletor de Sistema e Seletor de Harmônicos -->
+    <div style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin: 20px 0;">
+        <div>
+            <label for="tipoSistema" style="font-weight: bold; color: #1e293b; font-size: 0.9em;">Sistema Acústico:</label><br>
+            <select id="tipoSistema" onchange="mudarSistema()" style="padding: 8px 12px; border-radius: 6px; border: 2px solid #0004ff; font-weight: bold; background-color: #ffffff; color: #0004ff; margin-top: 5px; cursor: pointer;">
+                <option value="aberto">1. Tubo Aberto-Aberto</option>
+                <option value="fechado">2. Tubo Fechado-Aberto</option>
+                <option value="membrana">3. Membrana Vibrante Circular</option>
+            </select>
+        </div>
+
+        <div>
+            <label style="font-weight: bold; color: #1e293b; font-size: 0.9em;">Modo Harmônico ($n$):</label><br>
+            <div style="display: flex; gap: 5px; margin-top: 5px;">
+                <button id="btnH1" onclick="mudarHarmonico(1)" style="padding: 8px 15px; font-weight: bold; border-radius: 4px; border: 2px solid #0004ff; background-color: #0004ff; color: #fff; cursor: pointer;">1º Harmônico</button>
+                <button id="btnH2" onclick="mudarHarmonico(2)" style="padding: 8px 15px; font-weight: bold; border-radius: 4px; border: 2px solid #0004ff; background-color: #fff; color: #0004ff; cursor: pointer;">2º Harmônico</button>
+                <button id="btnH3" onclick="mudarHarmonico(3)" style="padding: 8px 15px; font-weight: bold; border-radius: 4px; border: 2px solid #0004ff; background-color: #fff; color: #0004ff; cursor: pointer;">3º Harmônico</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Caixa de Descrição Dinâmica -->
+    <div id="descricaoRes" style="font-size: 0.95em; color: #1e293b; background-color: #f1f5f9; border-left: 4px solid #0004ff; padding: 12px; border-radius: 4px; margin-bottom: 20px;"></div>
+
+    <!-- Área da Simulação (Canvas) -->
+    <div style="background-color: #f8fafc; padding: 15px; border: 2px solid #0004ff; border-radius: 8px; text-align: center;">
+        <p id="tituloCanvasRes" style="margin: 0 0 5px 0; font-size: 0.9em; color: #475569; font-weight: bold;"></p>
+        <canvas id="canvasRessonancia" width="600" height="220" style="width: 100%; max-width: 600px; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px;"></canvas>
+    </div>
+</div>
+
+<!-- SCRIPT JAVASCRIPT DA RESSONÂNCIA -->
+<script>
+    const textosRes = {
+        aberto: {
+            1: "<b>Tubo Aberto (1º Harmônico / Fundamental):</b> Apresenta antinós (ventres) nas duas extremidades e um único nó central. Relação: $L=\\lambda/2$.",
+            2: "<b>Tubo Aberto (2º Harmônico):</b> Apresenta antinós nas pontas e dois nós ao longo do tubo, dividindo-o em dois segmentos. Relação: $L=\\lambda$.",
+            3: "<b>Tubo Aberto (3º Harmônico):</b> Apresenta antinós nas pontas e três nós internos. Relação: $L=3\\lambda/2$."
+        },
+        fechado: {
+            1: "<b>Tubo Fechado (1º Harmônico / Fundamental):</b> Possui um nó na extremidade fechada (esquerda) e um antinó na extremidade aberta (direita). Relação: $L = \\lambda/4$.",
+            2: "<b>Tubo Fechado (Nota Didática):</b> O 2º harmônico *não existe* em tubos fechados devido às condições de contorno (exige apenas harmônicos ímpares $n = 1, 3, 5$).",
+            3: "<b>Tubo Fechado (3º Harmônico):</b> Possui um nó na ponta fechada e dois nós internos, completando três quartos de comprimento de onda. Relação: $L = 3\\lambda/4$."
+        },
+        membrana: {
+            1: "<b>Membrana Circular (Modo 0,1):</b> Modo fundamental em que toda a superfície oscila em fase, tendo como única linha nodal o contorno fixo da borda (Padrão de Chladni básico).",
+            2: "<b>Membrana Circular (Modo 1,1):</b> Apresenta uma linha nodal diametral que divide a membrana ao meio, fazendo os dois lados oscilarem em oposições de fase.",
+            3: "<b>Membrana Circular (Modo 0,2):</b> Apresenta uma linha nodal circular concêntrica interna, fazendo a região central vibrar em oposição à borda."
+        }
+    };
+
+    let sistemaAtual = 'aberto';
+    let harmonicoAtual = 1;
+    let tempoRes = 0;
+
+    const canvasRes = document.getElementById('canvasRessonancia');
+    const ctxRes = canvasRes.getContext('2d');
+
+    function mudarSistema() {
+        sistemaAtual = document.getElementById('tipoSistema').value;
+        
+        // Se mudar para tubo fechado e estiver no harmônico 2, ajusta para 1 por restrição física
+        if (sistemaAtual === 'fechado' && harmonicoAtual === 2) {
+            mudarHarmonico(1);
+        } else {
+            atualizarDescricao();
+        }
+    }
+
+    function mudarHarmonico(n) {
+        if (sistemaAtual === 'fechado' && n === 2) {
+            alert("Aviso físico: Tubos fechados não sustentam o 2º harmônico (apenas harmônicos ímpares: 1, 3, 5...).");
+            return;
+        }
+
+        harmonicoAtual = n;
+        
+        // Atualizar estilos dos botões
+        for (let i = 1; i <= 3; i++) {
+            let btn = document.getElementById('btnH' + i);
+            if (i === n) {
+                btn.style.backgroundColor = '#0004ff';
+                btn.style.color = '#fff';
+            } else {
+                btn.style.backgroundColor = '#fff';
+                btn.style.color = '#0004ff';
+            }
+        }
+        atualizarDescricao();
+    }
+
+    function atualizarDescricao() {
+    // 1. Atualiza o texto com o código LaTeX
+    document.getElementById('descricaoRes').innerHTML = textosRes[sistemaAtual][harmonicoAtual];
+    document.getElementById('tituloCanvasRes').innerText = document.getElementById('tipoSistema').selectedOptions[0].text + " — " + harmonicoAtual + "º Modo";
+
+    // 2. Força o MathJax a reprocessar e renderizar o novo conteúdo dinâmico
+    if (window.MathJax && window.MathJax.typesetPromise) {
+        MathJax.typesetPromise([document.getElementById('descricaoRes')]).catch((err) => console.log(err));
+    }
+}
+
+    // Inicialização da descrição
+    atualizarDescricao();
+
+    function animarRessonancia() {
+        ctxRes.clearRect(0, 0, canvasRes.width, canvasRes.height);
+
+        const largura = canvasRes.width;
+        const altura = canvasRes.height;
+        const centroY = altura / 2;
+
+        if (sistemaAtual === 'aberto' || sistemaAtual === 'fechado') {
+            // --- DESENHAR TUBOS SONOROS (1D) ---
+            let inicioX = 80;
+            let comprimentoTubo = 440;
+            let fimX = inicioX + comprimentoTubo;
+
+            // Estrutura física do tubo
+            ctxRes.strokeStyle = '#64748b';
+            ctxRes.lineWidth = 4;
+            ctxRes.beginPath();
+
+            if (sistemaAtual === 'aberto') {
+                // Ambas as extremidades abertas
+                ctxRes.moveTo(inicioX, centroY - 50); ctxRes.lineTo(inicioX, centroY + 50);
+                ctxRes.moveTo(fimX, centroY - 50); ctxRes.lineTo(fimX, centroY + 50);
+            } else {
+                // Esquerda fechada (parede hachurada), direita aberta
+                ctxRes.fillStyle = '#475569';
+                ctxRes.fillRect(inicioX - 10, centroY - 50, 10, 100);
+                ctxRes.moveTo(fimX, centroY - 50); ctxRes.lineTo(fimX, centroY + 50);
+            }
+
+            // Paredes superior e inferior
+            ctxRes.moveTo(inicioX, centroY - 50); ctxRes.lineTo(fimX, centroY - 50);
+            ctxRes.moveTo(inicioX, centroY + 50); ctxRes.lineTo(fimX, centroY + 50);
+            ctxRes.stroke();
+
+            // Linha central pontilhada
+            ctxRes.strokeStyle = '#cbd5e1';
+            ctxRes.lineWidth = 1;
+            ctxRes.setLineDash([3, 3]);
+            ctxRes.beginPath();
+            ctxRes.moveTo(inicioX, centroY);
+            ctxRes.lineTo(fimX, centroY);
+            ctxRes.stroke();
+            ctxRes.setLineDash([]);
+
+            // Desenhar a onda estacionária dentro do tubo
+            ctxRes.strokeStyle = '#0004ff';
+            ctxRes.lineWidth = 3;
+            ctxRes.beginPath();
+
+            let amplitudeMax = 35;
+            for (let x = 0; x <= comprimentoTubo; x++) {
+                let xNorm = x / comprimentoTubo;
+                let y = 0;
+
+                if (sistemaAtual === 'aberto') {
+                    // Aberto-Aberto: y = A * sin(n * pi * x / L) * cos(omega * t)
+                    y = amplitudeMax * Math.sin(harmonicoAtual * Math.PI * xNorm) * Math.cos(tempoRes);
+                } else {
+                    // Fechado-Aberto: y = A * sin(n * pi * x / (2 * L)) * cos(omega * t) onde n é ímpar
+                    let nImpar = (harmonicoAtual === 2) ? 1 : (harmonicoAtual === 1 ? 1 : 3);
+                    y = amplitudeMax * Math.sin((nImpar * Math.PI * xNorm) / 2) * Math.cos(tempoRes);
+                }
+
+                let px = inicioX + x;
+                let py = centroY - y;
+                if (x === 0) ctxRes.moveTo(px, py);
+                else ctxRes.lineTo(px, py);
+            }
+            ctxRes.stroke();
+
+        } else {
+            // --- DESENHAR MEMBRANA VIBRANTE CIRCULAR (2D - PADRÕES DE CHLADNI) ---
+            let raio = 80;
+            let centroX = largura / 2;
+
+            ctxRes.save();
+            ctxRes.translate(centroX, centroY);
+
+            // Círculo base da membrana
+            ctxRes.strokeStyle = '#334155';
+            ctxRes.lineWidth = 3;
+            ctxRes.beginPath();
+            ctxRes.arc(0, 0, raio, 0, Math.PI * 2);
+            ctxRes.stroke();
+
+            // Simulação visual dos modos normais circulares (Chladni)
+            let resolucao = 40;
+            let passoR = raio / resolucao;
+
+            for (let r = 0; r <= raio; r += passoR) {
+                let rNorm = r / raio;
+                for (let ang = 0; ang < Math.PI * 2; ang += 0.1) {
+                    let deslocamentoZ = 0;
+
+                    if (harmonicoAtual === 1) {
+                        // Modo fundamental (0,1): vibração uniforme em disco
+                        deslocamentoZ = Math.cos(Math.PI * rNorm / 2) * Math.cos(tempoRes);
+                    } else if (harmonicoAtual === 2) {
+                        // Modo (1,1): linha nodal diametral
+                        deslocamentoZ = Math.sin(Math.PI * rNorm) * Math.sin(ang) * Math.cos(tempoRes);
+                    } else if (harmonicoAtual === 3) {
+                        // Modo (0,2): linha nodal circular interna
+                        deslocamentoZ = Math.sin(2 * Math.PI * rNorm) * Math.cos(tempoRes);
+                    }
+
+                    let px = r * Math.cos(ang);
+                    let py = r * Math.sin(ang);
+
+                    // Cor baseada na amplitude do deslocamento (simulando acúmulo de areia nas linhas nodais)
+                    let intensidade = Math.abs(deslocamentoZ);
+                    if (intensidade < 0.15) {
+                        ctxRes.fillStyle = '#0f172a'; // Linha nodal (areia acumula aqui)
+                    } else {
+                        ctxRes.fillStyle = `rgba(37, 99, 235, ${intensidade})`; // Ventres vibrando
+                    }
+
+                    ctxRes.fillRect(px - 1.5, py - 1.5, 3, 3);
+                }
+            }
+            ctxRes.restore();
+        }
+
+        tempoRes += 0.07;
+        requestAnimationFrame(animarRessonancia);
+    }
+
+    // Iniciar animação
+    animarRessonancia();
+</script>
+
+    <h2>5. O Sistema Auditivo Humano e a Audição</h2>
+    <p>A função do ouvido é captar o som externo e convertê-lo em estímulos nervosos que serão interpretados pelo córtex auditivo.</p>
+    <!-- SEÇÃO DE ILUSTRAÇÃO: ANATOMIA DA ORELHA -->
+<div class="container-animacao" style="text-align: center; padding: 25px; margin-top: 25px; background-color: #f8fafc; border: 2px solid #0004ff; border-radius: 8px;">
+    <h3 style="color: #0004ff; margin-top: 0;">Anatomia do Aparelho Auditivo</h3>
+    <p style="text-align: left; color: #1e293b; margin-bottom: 15px;">
+        A imagem a seguir ilustra as principais divisões estruturais do sistema auditivo humano (orelha externa, média e interna), 
+        fundamentais para a captação, transmissão e transdução das ondas sonoras.
+    </p>
+
+    <!-- Container da Imagem -->
+    <div style="max-width: 500px; margin: 0 auto;">
+        <img src="Imagens\Imagemorelha.png" 
+             alt="Esquema anatômico da orelha humana" 
+             style="width: 100%; height: auto; border: 1px solid #cbd5e1; border-radius: 6px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+    </div>
+    
+    <p style="font-size: 0.85em; color: #64748b; margin-top: 10px;">
+        <em>Figura: Representação esquemática das estruturas anatômicas da audição.</em>
+    </p>
+</div>
+    
+    <h3>1. Orelha Externa: Captação e Direcionamento</h3>
+    <p>É a porção visível do sistema auditivo, composta por:</p>
+    <ul>
+        <li><b>Pavilhão Auricular (Orelha):</b> Estrutura cartilaginosa que atua como um funil acústico, auxiliando na localização espacial e na captação das ondas sonoras.</li>
+        <li><b>Meato Acústico Externo (Canal Auditivo):</b> Tubo de cerca de $2,5\text{ cm}$ que conduz o som até o tímpano, atuando como um ressoador acústico que amplifica naturalmente frequências na faixa de $2\text{ kHz}$ a $5\text{ kHz}$.</li>
+    </ul>
+
+    <h3>2. Orelha Média: Transformação e Casamento de Impedância</h3>
+    <p>Cavidade preenchida por ar, separada do canal auditivo pela <b>membrana timpânica (tímpano)</b>. Como o ar possui baixa impedância acústica ($Z_{\text{ar}}$) e o fluido da orelha interna possui alta impedância ($Z_{\text{fluido}}$), sem um mecanismo de adaptação mais de $99,9\%$ da energia sonora seria refletida. A orelha média resolve essa incompatibilidade por meio da cadeia de ossículos (martelo, bigorna e estribo) através de dois mecanismos:</p>
+    <ol>
+        <li><b>Razão de Áreas:</b> A área do tímpano é de $17$ a $20$ vezes maior do que a base do estribo, concentrando a força e multiplicando a pressão.</li>
+        <li><b>Ação de Alavanca:</b> A geometria dos ossículos eleva mecanicamente a força aplicada à janela oval.</li>
+    </ol>
+
+    <h3>3. Orelha Interna: Transdução e Análise de Frequências</h3>
+    <p>A <b>cóclea</b> é uma estrutura em formato de caracol preenchida por fluidos. O movimento do estribo gera ondas de pressão que fazem a <b>membrana basilar</b> oscilar. Devido à sua variação de rigidez ao longo do comprimento (organização tonotópica), ocorre a análise espectral:</p>
+    <ul>
+        <li><b>Base da cóclea (mais rígida e estreita):</b> Responde a frequências altas (agudas).</li>
+        <li><b>Ápice / Helicotrema (mais flexível e larga):</b> Responde a frequências baixas (graves).</li>
+    </ul>
+    <p>As <b>células ciliadas</b> sobre o Órgão de Corti curvam-se com esse movimento, abrindo canais iônicos que convertem a energia mecânica em impulsos elétricos transmitidos pelo nervo auditivo.</p>
+
+    <h3>Faixa de Sensibilidade e Audiograma</h3>
+    <p>O sistema auditivo opera em frequências de $20\text{ Hz}$ a $20.000\text{ Hz}$, com máxima sensibilidade entre $2\text{ kHz}$ e $5\text{ kHz}$. O <b>audiograma</b> é a representação gráfica obtida por audiometria tonal que mede os limiares de audição em $\text{dB HL}$ (Decibels Hearing Level), permitindo diagnosticar condições como a <b>presbiacusia</b> (perda auditiva natural decorrente do envelhecimento, caracterizada pela queda acentuada nas frequências agudas acima de $2\text{ kHz}$).</p>
+    <!-- SEÇÃO DE ILUSTRAÇÃO: CURVA DE SENSIBILIDADE DO OUVIDO HUMANO -->
+<div class="container-animacao" style="text-align: left; padding: 25px; margin-top: 25px; background-color: #f8fafc; border: 2px solid #0004ff; border-radius: 8px;">
+    <h3 style="color: #0004ff; margin-top: 0; text-align: center;">Curva de Sensibilidade do Ouvido Humano</h3>
+    <p style="color: #1e293b; margin-bottom: 15px; line-height: 1.6;">
+        O gráfico abaixo delimita a <b>Área de Audibilidade Humana</b>, compreendida entre o <i>limiar de audição</i> 
+        (mínimo audível) e o <i>limiar da dor</i> ($120\text{ dB}$ a $130\text{ dB}$). Note que a orelha humana não possui a mesma 
+        sensibilidade para todas as frequências: a <b>região de máxima sensibilidade</b> situa-se na faixa entre $2\text{ kHz}$ e $5\text{ kHz}$, 
+        exatamente onde se concentra a <b>região da fala</b> (conversação humana).
+    </p>
+
+    <!-- Container da Imagem -->
+    <div style="max-width: 650px; margin: 0 auto; text-align: center;">
+        <img src="Imagens\Curvadesensibilidade.png" 
+             alt="Curva de Sensibilidade do Ouvido Humano e Área de Audibilidade" 
+             style="width: 100%; height: auto; border: 1px solid #cbd5e1; border-radius: 6px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); background-color: #ffffff;">
+    </div>
+    
+    <p style="font-size: 0.85em; color: #64748b; margin-top: 10px; text-align: center;">
+        <em>Figura: Diagrama do Nível de Pressão Sonora (NPS em dB) em função da Frequência (Hz), destacando o infrassom, o ultrassom e as áreas de audibilidade.</em>
+    </p>
+</div>
+
+    <h2>6. Localização Binaural e Efeito Doppler</h2>
+    <p>A <b>binauralidade</b> permite ao cérebro construir um mapa tridimensional do ambiente utilizando duas pistas principais (Teoria Duplex de Rayleigh):</p>
+    <ol>
+        <li><b>Diferença Temporal Interaural (ITD):</b> Baseada na pequena diferença no tempo de chegada do som em cada orelha ($\approx 10\ \mu\text{s}$ a $650\ \mu\text{s}$), sendo a pista primária para baixas frequências ($f < 1,5\text{ kHz}$).</li>
+        <li><b>Diferença de Nível Interaural (ILD):</b> Baseada na atenuação de intensidade gerada pela "sombra acústica" da cabeça, atuando principalmente em altas frequências ($f > 1,5\text{ kHz}$). Aqui a cabeça atua como um obstáculo, criando uma região de sombra onde o som é atenuado. Ou seja, a intensidade do som é menor na orelha oposta à fonte sonora.</li>
+    </ol>
+
+    <h3>Efeito Doppler</h3>
+    <p>Ocorre quando há movimento relativo entre a fonte sonora e o observador. Quando uma fonte se aproxima, as frentes de onda comprimem-se, diminuindo o comprimento de onda aparente ($\lambda' < \lambda$) e elevando a frequência percebida ($f' > f$), o que torna o som mais agudo. A relação matemática do efeito Doppler para o som é dada por:</p>
+    $$f' = f \left(\frac{v \pm v_{\text{obs}}}{v \mp v_{\text{fonte}}}\right)$$
+    <p>Onde:</p>
+    <ul>
+        <li>$f'$: Frequência aparente percebida pelo observador (em Hz).</li>
+        <li>$f$: Frequência real emitida pela fonte sonora (em Hz).</li>
+        <li>$v$: Velocidade de propagação do som no meio (em m/s).</li>
+        <li>$v_{\text{obs}}$: Velocidade do observador (em m/s).</li>
+        <li>$v_{\text{fonte}}$: Velocidade da fonte sonora (em m/s).</li>
+    </ul>
+
+    <p><b>Critério de Seleção dos Sinais ($\pm$ e $\mp$):</b></p>
+    <p>A escolha correta dos sinais no numerador e no denominador depende exclusivamente da direção do movimento relativo entre a fonte e o observador, adotando-se a seguinte regra prática baseada na aproximação ou no afastamento:</p>
+    <ul>
+        <li><b>Numerador ($v \pm v_{\text{obs}}$):</b> 
+            <ul>
+                <li>Use o sinal de <b>soma ($+$)</b> se o observador estiver se <b>movimentando em direção à fonte</b> (aproximação).</li>
+                <li>Use o sinal de <b>subtração ($-$)</b> se o observador estiver se <b>movimentando no sentido oposto à fonte</b> (afastamento).</li>
+            </ul>
+        </li>
+        <li><b>Denominador ($v \mp v_{\text{fonte}}$):</b> 
+            <ul>
+                <li>Use o sinal de <b>subtração ($-$)</b> se a fonte estiver se <b>movimentando em direção ao observador</b> (aproximação — o que diminui o denominador e aumenta a frequência percebida).</li>
+                <li>Use o sinal de <b>soma ($+$)</b> se a fonte estiver se <b>movimentando no sentido oposto ao observador</b> (afastamento — o que aumenta o denominador e diminui a frequência percebida).</li>
+            </ul>
+        </li>
+    </ul>
+    <p><em>Dica mnemônica:</em> Pense sempre que a aproximação gera um som mais agudo (frequência maior), logo devemos escolher os sinais que favorecem o aumento do resultado da fração. O afastamento gera um som mais grave (frequência menor), exigindo os sinais que diminuem o valor da fração.</p>
+    <!-- SEÇÃO INTERATIVA: SIMULAÇÃO DO EFEITO DOPPLER -->
+<div class="container-animacao" style="text-align: left; padding: 25px; margin-top: 25px;">
+    <h3 style="text-align: center; color: #0004ff;">Simulação Visual: O Efeito Doppler (Aproximação e Afastamento)</h3>
+    <p>
+        A animação abaixo demonstra uma fonte sonora em movimento emitindo frentes de onda <b>vermelhas</b>. 
+        Note que, na frente do veículo (sentido do movimento), as frentes de onda encontram-se <b>comprimidas</b> 
+        (comprimento de onda menor, representando um som mais agudo). Atrás do veículo, as ondas estão 
+        <b>espaçadas</b> (representando um som mais grave).
+    </p>
+
+    <!-- Botões de Controle da Simulação -->
+    <div style="margin: 15px 0; text-align: center;">
+        <button onclick="reiniciarDoppler()" style="background-color: #0004ff; color: #ffffff; border: none; padding: 8px 16px; font-weight: bold; border-radius: 4px; cursor: pointer;">
+            Reiniciar Emissão
+        </button>
+    </div>
+
+    <!-- Estilo do Painel -->
+    <style>
+        .painel-doppler {
+            background-color: #f8fafc;
+            padding: 15px;
+            border: 2px solid #0004ff;
+            border-radius: 8px;
+            text-align: center;
+        }
+    </style>
+
+    <!-- Canvas da Simulação Doppler -->
+    <div class="painel-doppler">
+        <p style="margin: 0 0 5px 0; font-size: 0.9em; color: #475569; font-weight: bold;">Frentes de Onda em Movimento (Fonte Sonora Móvel)</p>
+        <canvas id="canvasDoppler" width="600" height="220" style="width: 100%; max-width: 600px; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px;"></canvas>
+    </div>
+</div>
+
+<!-- SCRIPT JAVASCRIPT DA SIMULAÇÃO DOPPLER -->
+<script>
+    const cDoppler = document.getElementById('canvasDoppler');
+    const ctxDoppler = cDoppler.getContext('2d');
+
+    let posXFonte = 100;
+    let velocidadeFonte = 1.5;
+    let ondasDoppler = [];
+    let contadorFrames = 0;
+
+    function reiniciarDoppler() {
+        posXFonte = 100;
+        ondasDoppler = [];
+        contadorFrames = 0;
+    }
+
+    function animarDoppler() {
+        ctxDoppler.clearRect(0, 0, cDoppler.width, cDoppler.height);
+
+        const centroY = cDoppler.height / 2;
+
+        // Movimentar a fonte da esquerda para a direita
+        posXFonte += velocidadeFonte;
+        if (posXFonte > cDoppler.width - 80) {
+            posXFonte = 100; // Reseta o ciclo
+            ondasDoppler = [];
+        }
+
+        // Emitir novas frentes de onda periodicamente
+        contadorFrames++;
+        if (contadorFrames % 35 === 0) {
+            ondasDoppler.push({ x: posXFonte, raio: 5 });
+        }
+
+        // Atualizar e desenhar as frentes de onda vermelhas
+        ctxDoppler.lineWidth = 2;
+        for (let i = 0; i < ondasDoppler.length; i++) {
+            let onda = ondasDoppler[i];
+            onda.raio += 1.8; // Velocidade de propagação da onda sonora
+
+            // Cor vermelha com opacidade decrescente conforme o raio expande
+            let opacidade = Math.max(0, 1 - (onda.raio / 350));
+            ctxDoppler.strokeStyle = `rgba(239, 68, 68, ${opacidade})`;
+            
+            ctxDoppler.beginPath();
+            ctxDoppler.arc(onda.x, centroY, onda.raio, 0, Math.PI * 2);
+            ctxDoppler.stroke();
+        }
+
+        // Desenhar a fonte sonora (veículo / emissor)
+        ctxDoppler.fillStyle = '#1e293b';
+        ctxDoppler.beginPath();
+        ctxDoppler.arc(posXFonte, centroY, 12, 0, Math.PI * 2);
+        ctxDoppler.fill();
+        ctxDoppler.strokeStyle = '#0004ff';
+        ctxDoppler.lineWidth = 2;
+        ctxDoppler.stroke();
+
+        // Rótulo da fonte
+        ctxDoppler.fillStyle = '#0004ff';
+        ctxDoppler.font = 'bold 11px sans-serif';
+        ctxDoppler.fillText("Fonte Sonora (v > 0)", posXFonte - 50, centroY - 25);
+
+        // Rótulos explicativos na tela
+        ctxDoppler.fillStyle = '#1e293b';
+        ctxDoppler.font = '10px sans-serif';
+        ctxDoppler.fillText("◄ Ondas Espaçadas (Afastamento / Som Grave)", 40, 30);
+        ctxDoppler.fillText("Ondas Comprimidas (Aproximação / Som Agudo) ►", 310, 30);
+
+        requestAnimationFrame(animarDoppler);
+    }
+
+    animarDoppler();
+</script>
+
+    <h2>7. Poluição Sonora e Seus Impactos</h2>
+    <p>Considerada pela Organização Mundial da Saúde (OMS) o segundo maior fator de risco ambiental, a exposição prolongada a ruídos excessivos gera impactos sistêmicos graves:</p>
+    <ul>
+        <li><b>Efeitos Cardiovasculares:</b> Acima de 55 dB, o corpo interpreta o ruído como ameaça, liberando cortisol e adrenalina, elevando a pressão arterial e o risco de infarto.</li>
+        <li><b>Perda Auditiva Induzida por Ruído (PAIR):</b> Exposições contínuas acima de 85 dB provocam a morte irreversível das células ciliadas da cóclea.</li>
+        <li><b>Distúrbios do Sono:</b> Ruídos noturnos acima de 40 dB fragmentam o sono, impedindo o alcance dos estágios profundos essenciais para a reparação celular.</li>
+    </ul>
+    
+    <p>Os limites recomendados pela OMS e normas técnicas estabelecem tetos rigorosos:</p>
+    <ul>
+        <li>Ambiente Residencial (Diurno): Máximo de 50 dB a 55 dB.</li>
+        <li>Ambiente Residencial (Noturno): Máximo de 40 dB a 45 dB.</li>
+        <li>Quartos de Hospital: 30 dB a 35 dB.</li>
+        <li>Limiar da Dor Auditiva: Em torno de 120 dB a 130 dB.</li>
+    </ul>
+
+    <p style="margin-top: 40px; text-align: center;">
+        Retornar à <a href="index.html">página principal do projeto</a> ou consultar a página sobre o <a href="02Berimbau.html">Berimbau</a>.
+    </p>
+    <h1>Referência</h1>
+<p class="referencia-abnt">
+  BORGES, Antonio Newton; RODRIGUES, Clóvis Gonçalvez. <strong>Introdução A Física Acústica</strong>. São Paulo: Editora Livraria da Física, 2017.
+</p>
+</body>
+</html>

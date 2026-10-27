@@ -86,3 +86,31 @@ body{
     color: #333;
     text-align: center;
 }
+/* ==========================================
+   Formatação de Imagens alinhadas ao Texto
+   ========================================== */
+.imagem-projeto {
+    background-color: #ffffff; /* Mantém o fundo branco de destaque */
+    border: 2px solid #0004ff; /* Borda azul padrão */
+    border-radius: 8px;
+    padding: 15px;
+    margin: 25px 0; /* Garante que alinhe perfeitamente com as margens laterais */
+    width: 100%;    /* Ocupa 100% da largura útil da página (dentro do body de 80%) */
+    box-sizing: border-box; /* Garante que o padding não faça vazar da margem */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.imagem-projeto img {
+    width: 100%;    /* Força a imagem a preencher toda a largura da caixa */
+    height: auto;   /* Mantém a proporção original para a imagem não distorcer */
+    border-radius: 4px;
+    display: block;
+}
+
+.imagem-projeto figcaption {
+    font-size: 0.9em;
+    color: #333333;
+    margin-top: 10px;
+    font-style: italic;
+    text-align: center;
+}
